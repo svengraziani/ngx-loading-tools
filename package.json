@@ -1,0 +1,32 @@
+{
+  "name": "ngx-loading-tools",
+  "description": "This library provides a toolset for common loading state management, by providing hackable Loading Strategies and a Http Interceptor.",
+  "version": "12.0.0",
+  "author": {
+    "email": "sgraziani@anexia-it.com",
+    "name": "Sven Graziani"
+  },
+  "keywords": [
+    "interceptor",
+    "angular",
+    "loading",
+    "state",
+    "tool",
+    "dry",
+    "anexia"
+  ],
+  "repository": {
+    "url": "https://github.com/svengraziani/ngx-loading-tools",
+    "type": "git"
+  },
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "@anexia/ngx-interceptor-tools": "^12.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
