@@ -12,3 +12,5 @@ export * from './lib/interceptors/web-service-loading.interceptor';
 
 export * from './lib/strategies/loading-handler';
 export * from './lib/strategies/distinct-loading-handler';
+
+export * from './lib/configs/provide-interceptor-config';
