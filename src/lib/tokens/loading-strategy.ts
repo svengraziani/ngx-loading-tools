@@ -1,2 +1,3 @@
 import {InjectionToken} from "@angular/core";
-export const LOADING_STRATEGY = new InjectionToken('Loading strategy token');
+import {LoadingStrategy} from "../interfaces/loading-strategy";
+export const LOADING_STRATEGY = new InjectionToken<LoadingStrategy>('Loading strategy token');

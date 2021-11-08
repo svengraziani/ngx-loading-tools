@@ -1,4 +1,5 @@
 import {RequestMatchStrategy} from "@anexia/ngx-interceptor-tools";
+import {LoadingHandlerStrategy} from "./loading-handler-strategy";
 
 export type LoadingStrategies = LoadingStrategy[];
 
