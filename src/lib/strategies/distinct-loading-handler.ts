@@ -3,7 +3,7 @@ import {HttpRequest} from "@angular/common/http";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {Memoize} from "typescript-memoize";
 import {distinctUntilChanged, shareReplay, switchMap} from "rxjs/operators";
-import {RequestMatchSelectorStrategy} from "@anexia/ngx-interceptor-tools";
+import { RequestSelectorStrategy } from "@anexia/ngx-interceptor-tools";
 
 export type DistinctLoadingStateDict = { [selector: string]: boolean }
 
@@ -11,7 +11,7 @@ export class DistinctLoadingHandler implements LoadingHandlerStrategy {
 
   private _loadingStateSubject = new BehaviorSubject<DistinctLoadingStateDict>({});
 
-  public constructor(private selector: RequestMatchSelectorStrategy) {
+  public constructor(private selector: RequestSelectorStrategy) {
   }
 
   public start(request: HttpRequest<any>): void {

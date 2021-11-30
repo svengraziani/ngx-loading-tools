@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {LOADING_STRATEGY} from '../tokens/loading-strategy';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, finalize, tap} from 'rxjs/operators';
 import {INSPECT_LOADING_INTERCEPTOR} from "../tokens/inspect-loading-strategy";
 import {LoadingStrategies} from "../interfaces/loading-strategy";
 
@@ -30,17 +30,27 @@ export class WebServiceLoadingInterceptor implements HttpInterceptor {
       return delegate.handle(request);
     }
 
+    let requestCancelled = true;
     return delegate.handle(request).pipe(
-      tap(httpEvent => {
-        if (httpEvent instanceof HttpResponse) {
-          this.stopStrategies(matchingStrategies, request);
-        } else {
+      tap((httpEvent: HttpEvent<any>) => {
+
+        if(httpEvent?.type === 4) {
+          requestCancelled = false;
+        }
+
+        if(httpEvent?.type === 0) {
           matchingStrategies.forEach(matchingStrategy => matchingStrategy.handler.start(request));
         }
       }),
       catchError(error => {
+        requestCancelled = false;
         this.stopStrategies(matchingStrategies, request);
         return throwError(error);
+      }),
+      finalize(() => {
+        if(requestCancelled) {
+          this.stopStrategies(matchingStrategies, request);
+        }
       })
     );
   }
