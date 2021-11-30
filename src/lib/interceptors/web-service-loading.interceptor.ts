@@ -33,9 +33,12 @@ export class WebServiceLoadingInterceptor implements HttpInterceptor {
     let requestCancelled = true;
     return delegate.handle(request).pipe(
       tap((httpEvent: HttpEvent<any>) => {
-
+        if (this.inspectLoadingInterceptor) {
+          console.log(httpEvent, request, matchingStrategies);
+        }
         if(httpEvent?.type === 4) {
           requestCancelled = false;
+          this.stopStrategies(matchingStrategies, request);
         }
 
         if(httpEvent?.type === 0) {
@@ -43,11 +46,17 @@ export class WebServiceLoadingInterceptor implements HttpInterceptor {
         }
       }),
       catchError(error => {
+        if (this.inspectLoadingInterceptor) {
+          console.error(error, request, matchingStrategies);
+        }
         requestCancelled = false;
         this.stopStrategies(matchingStrategies, request);
         return throwError(error);
       }),
       finalize(() => {
+        if (this.inspectLoadingInterceptor) {
+          console.log('finalize', request, matchingStrategies);
+        }
         if(requestCancelled) {
           this.stopStrategies(matchingStrategies, request);
         }
