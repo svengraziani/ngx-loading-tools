@@ -1,7 +1,7 @@
 {
   "name": "@anexia/ngx-loading-tools",
   "description": "This library provides a toolset for common loading state management, by providing hackable Loading Strategies and a Http Interceptor.",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "author": {
     "email": "sgraziani@anexia-it.com",
     "name": "Sven Graziani"
